@@ -1,6 +1,7 @@
 import ass1.MathUtil;
 import junit.framework.TestCase;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * COMMENT: Comment MathUtilTest 

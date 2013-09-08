@@ -93,6 +93,30 @@ public class GameEngine implements GLEventListener {
         }        
     }
 
-   
-    
+    public List<GameObject> collision(double[] p){
+        ArrayList objectList = new ArrayList<GameObject>();
+
+        for(GameObject object : GameObject.ALL_OBJECTS){
+            if(object instanceof PolygonalGameObject){
+
+            }
+        }
+
+        return objectList;
+    }
+
+    int countLinesOnRight(double[] point, PolygonalGameObject polygon){
+        int count = 0;
+
+        return count;
+    }
+
+    // returns -1 if on left, 0 if on line, 1 if on right
+    public static double comparePointAndLine(double[] point, double[] line){
+        double condition = -2;
+
+        condition = (line[3] - line[1])*(point[0] - line[0]) - (line[2] - line[0])*(point[1] - line[1]) ;
+
+        return condition;
+    }
 }

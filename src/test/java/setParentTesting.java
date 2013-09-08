@@ -21,10 +21,11 @@ import java.awt.*;
  * @author malcolmr
  */
 public class setParentTesting extends GameObject {
+    String name;
 
-
-    public setParentTesting(GameObject parent) {
+    public setParentTesting(GameObject parent, String name) {
         super(parent);
+        this.name = name;
     }
 
     @Override
@@ -70,34 +71,40 @@ public class setParentTesting extends GameObject {
         camera.setScale(2); // scale up the camera so we can see more of the world  
         
         // A set of axes showing the world coordinate frame 
-        setParentTesting axesWorld = new setParentTesting(GameObject.ROOT);
+        setParentTesting axesWorld = new setParentTesting(GameObject.ROOT, "axesWorld");
         
         // A set of axes showing a transformed coordinate frame
-        setParentTesting axesParent1 = new setParentTesting(GameObject.ROOT);
-        axesParent1.setPosition(1, 1);
-        axesParent1.setRotation(45);
+        setParentTesting axesParent1 = new setParentTesting(GameObject.ROOT, "axesParent1");
+        axesParent1.setPosition(1, 2);
+        axesParent1.setRotation(60);
         axesParent1.setScale(0.5);
 
         // A set of axes that are a child of the above
-        setParentTesting axesChild1 = new setParentTesting(axesParent1);
+        setParentTesting axesChild1 = new setParentTesting(axesParent1, "axesChild1");
         axesChild1.setPosition(-2, -1);
         axesChild1.setRotation(-90);
         axesChild1.setScale(2);
 
         // A set of axes showing a transformed coordinate frame
-        setParentTesting axesParent2 = new setParentTesting(GameObject.ROOT);
+        setParentTesting axesParent2 = new setParentTesting(GameObject.ROOT, "axesParent2");
         axesParent2.setPosition(-1, -1);
-        axesParent2.setRotation(-45);
-        axesParent2.setScale(0.5);
+        axesParent2.setRotation(-85);
+        axesParent2.setScale(.25);
 
         // A set of axes that are a child of the above
-        setParentTesting axesChild2 = new setParentTesting(axesParent2);
+        setParentTesting axesChild2 = new setParentTesting(axesParent2, "axesChild2");
         axesChild2.setPosition(2, 1);
         axesChild2.setRotation(90);
-        axesChild2.setScale(2);
+        axesChild2.setScale(3);
+
+        axesParent2.printDetails();
+        axesChild2.printDetails();
 
         axesParent2.setParent(axesParent1);
-        
+
+        axesParent2.printDetails();
+        axesChild2.printDetails();
+
         // Add the game engine
         GameEngine engine = new GameEngine(camera);
         panel.addGLEventListener(engine);
@@ -115,4 +122,10 @@ public class setParentTesting extends GameObject {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    void printDetails(){
+        System.out.println("Object name: " + name);
+        System.out.println("Object global position: " + getGlobalPosition()[0] + ", " + getGlobalPosition()[1]);
+        System.out.println("Object global rotation: " + getGlobalRotation());
+        System.out.println("Object global scale: " + getGlobalScale());
+    }
 }
