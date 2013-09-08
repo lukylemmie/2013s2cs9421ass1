@@ -168,4 +168,17 @@ public class MathUtil {
     public static double[][] reverseScaleMatrix(double scale){
         return scaleMatrix(1/scale);
     }
+
+
+    // returns -1 if on left, 0 if on line, 1 if on right
+    public static double comparePointAndLine(double[] point, double[] line){
+        double condition = -2;
+
+        if(line[3] > line[1])
+            condition = (line[3] - line[1])*(point[0] - line[0]) - (line[2] - line[0])*(point[1] - line[1]) ;
+        else
+            condition = (line[1] - line[3])*(point[0] - line[2]) - (line[0] - line[2])*(point[1] - line[3]) ;
+
+        return condition;
+    }
 }

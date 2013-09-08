@@ -94,29 +94,79 @@ public class GameEngine implements GLEventListener {
     }
 
     public List<GameObject> collision(double[] p){
-        ArrayList objectList = new ArrayList<GameObject>();
+        ArrayList<GameObject> objectList = new ArrayList<GameObject>();
 
         for(GameObject object : GameObject.ALL_OBJECTS){
             if(object instanceof PolygonalGameObject){
-
+                PolygonalGameObject polygon = (PolygonalGameObject) object;
+                PointAndPolygon temp = new PointAndPolygon(p, polygon.getPoints());
+                if(temp.isPointInPolygon()){
+                    objectList.add(object);
+                }
             }
         }
 
         return objectList;
     }
 
-    int countLinesOnRight(double[] point, PolygonalGameObject polygon){
-        int count = 0;
+    private class PointAndPolygon{
+        private double[] point;
+        private double[] polygon;
+        private boolean pointInPolygon = false;
 
-        return count;
-    }
+        private PointAndPolygon(double[] point, double[] polygon){
+            int count;
 
-    // returns -1 if on left, 0 if on line, 1 if on right
-    public static double comparePointAndLine(double[] point, double[] line){
-        double condition = -2;
+            this.point = point;
+            this.polygon = polygon;
 
-        condition = (line[3] - line[1])*(point[0] - line[0]) - (line[2] - line[0])*(point[1] - line[1]) ;
+            count = countLinesOnRight();
 
-        return condition;
+            if(!pointInPolygon){
+                if(count % 2 == 1){
+                    pointInPolygon = true;
+                }
+            }
+        }
+
+        private boolean isPointInPolygon() {
+            return pointInPolygon;
+        }
+
+        int countLinesOnRight(){
+            int count = 0;
+            double ax, ay, bx, by;
+
+            for(int i = 0; i < polygon.length - 2 && !pointInPolygon; i += 2){
+                ax = polygon[i];
+                ay = polygon[i+1];
+                bx = polygon[i+2];
+                by = polygon[i+3];
+
+                if(checkVerticallyBetween(point[1], ay, by)){
+                    double[] line = {ax, ay, bx, by};
+                    double condition = MathUtil.comparePointAndLine(point, line);
+                    if(condition == 0){
+                        pointInPolygon = true;
+                    } else if(condition > 0){
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        boolean checkVerticallyBetween(double py, double ay, double by){
+            boolean isBetween = false;
+
+            if(ay <= py && py < by){
+                isBetween = true;
+            } else if(by <= py && py < ay){
+                isBetween = true;
+            }
+
+            return isBetween;
+        }
     }
 }
