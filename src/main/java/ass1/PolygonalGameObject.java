@@ -1,5 +1,6 @@
 package ass1;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 /**
@@ -7,9 +8,7 @@ import javax.media.opengl.GL2;
  * 
  * This class extend ass1.GameObject to draw polygonal shapes.
  *
- * TODO: The methods you need to complete are at the bottom of the class
- *
- * @author malcolmr
+ * @author AndrewLem
  */
 public class PolygonalGameObject extends GameObject {
 
@@ -110,14 +109,44 @@ public class PolygonalGameObject extends GameObject {
      * if the fill colour is non-null, fill the polygon with this colour
      * if the line colour is non-null, draw the outline with this colour
      * 
-     * @see ass1.spec.GameObject#drawSelf(javax.media.opengl.GL2)
+     * @see ass1.GameObject#drawSelf(javax.media.opengl.GL2)
      */
     @Override
     public void drawSelf(GL2 gl) {
-
+//        objectFields
+//        private double[] myPoints;
+//        private double[] myFillColour;
+//        private double[] myLineColour;
+//        * @param parent The parent in the scene tree
+//        * @param points A list of points defining the polygon
+//        * @param fillColour The fill colour in [r, g, b, a] form
+//        * @param lineColour The outlien colour in [r, g, b, a] form
         // TODO: Write this method
 
+        if(myFillColour != null){
+            gl.glColor4d(myFillColour[0], myFillColour[1], myFillColour[2], myFillColour[3]);
+            gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
+            drawPolygon(gl);
+        }
+
+        if(myLineColour != null){
+            gl.glColor4d(myLineColour[0], myLineColour[1], myLineColour[2], myLineColour[3]);
+            gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_LINE);
+            drawPolygon(gl);
+        }
+
+        gl.glPolygonMode(GL2.GL_FRONT_AND_BACK, GL2.GL_FILL);
     }
 
+    void drawPolygon(GL2 gl){
+        gl.glBegin(GL2.GL_POLYGON);
+
+        for (int i = 0; i < myPoints.length; i=i+2) {
+            gl.glVertex2d(myPoints[i], myPoints[i+1]);
+        }
+
+        gl.glEnd();
+
+    }
 
 }

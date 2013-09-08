@@ -13,9 +13,7 @@ import javax.media.opengl.GL2;
  * 
  * Each ass1.GameObject is offset from its parent by a rotation, a translation and a scale factor.
  *
- * TODO: The methods you need to complete are at the bottom of the class
- *
- * @author malcolmr
+ * @author AndrewLem
  */
 public class GameObject {
 
@@ -247,8 +245,7 @@ public class GameObject {
     
     /**
      * Draw the object and all of its descendants recursively.
-     * 
-     * TODO: Complete this method
+     *
      * 
      * @param gl
      */
@@ -259,13 +256,21 @@ public class GameObject {
             return;
         }
 
-        // TODO: draw the object and all its children recursively
+        // draw the object and all its children recursively
         // setting the model transform appropriately
-        gl.glTranslated(myTranslation[0], myTranslation[1], 0);
-        gl.glRotated(myRotation, 0, 0, 1);
-        gl.glScaled(myScale, myScale, 1);
-        // Call drawSelf() to draw the object itself
-        drawSelf(gl);
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glPushMatrix();
+        {
+            gl.glTranslated(myTranslation[0], myTranslation[1], 0);
+            gl.glRotated(myRotation, 0, 0, 1);
+            gl.glScaled(myScale, myScale, 1);
+            // Call drawSelf() to draw the object itself
+            drawSelf(gl);
+            for (GameObject child : myChildren) {
+                child.draw(gl);
+            }
+        }
+        gl.glPopMatrix();
     }
 
     public double[][] getLocalMatrix(){
@@ -293,8 +298,7 @@ public class GameObject {
 
     /**
      * Compute the object's position in world coordinates
-     * 
-     * TODO: Write this method
+     *
      * 
      * @return a point in world coordinats in [x,y] form
      */
@@ -304,8 +308,7 @@ public class GameObject {
 
     /**
      * Compute the object's rotation in the global coordinate frame
-     * 
-     * TODO: Write this method
+     *
      * 
      * @return the global rotation of the object (in degrees) 
      */
@@ -322,10 +325,8 @@ public class GameObject {
     }
 
     /**
-     * Compte the object's scale in global terms
-     * 
-     * TODO: Write this method
-     * 
+     * Compute the object's scale in global terms
+     *
      * @return the global scale of the object 
      */
     public double getGlobalScale() {
@@ -342,14 +343,12 @@ public class GameObject {
     /**
      * Change the parent of a game object.
      * 
-     * TODO: add code so that the object does not change its global position, rotation or scale
+     * add code so that the object does not change its global position, rotation or scale
      * when it is reparented. 
      * 
      * @param parent
      */
     public void setParent(GameObject parent) {
-
-        //TODO: check for x/DIV! errors
 
         double[][] matrix = getGlobalMatrix();
         double globalRotation = getGlobalRotation();

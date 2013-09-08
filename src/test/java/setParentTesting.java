@@ -1,13 +1,14 @@
-import java.awt.BorderLayout;
+import ass1.Camera;
+import ass1.GameEngine;
+import ass1.GameObject;
+import com.jogamp.opengl.util.FPSAnimator;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
-import javax.swing.JFrame;
-
-import ass1.*;
-import com.jogamp.opengl.util.FPSAnimator;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple axes object for debugging the assignment.
@@ -19,10 +20,10 @@ import com.jogamp.opengl.util.FPSAnimator;
  *
  * @author malcolmr
  */
-public class AxesObject extends GameObject {
+public class setParentTesting extends GameObject {
 
 
-    public AxesObject(GameObject parent) {
+    public setParentTesting(GameObject parent) {
         super(parent);
     }
 
@@ -69,20 +70,34 @@ public class AxesObject extends GameObject {
         camera.setScale(2); // scale up the camera so we can see more of the world  
         
         // A set of axes showing the world coordinate frame 
-        AxesObject axesWorld = new AxesObject(GameObject.ROOT);
+        setParentTesting axesWorld = new setParentTesting(GameObject.ROOT);
         
         // A set of axes showing a transformed coordinate frame
-        AxesObject axesParent = new AxesObject(GameObject.ROOT);
-        axesParent.setPosition(1, 1);
-        axesParent.setRotation(45);
-        axesParent.setScale(0.5);
+        setParentTesting axesParent1 = new setParentTesting(GameObject.ROOT);
+        axesParent1.setPosition(1, 1);
+        axesParent1.setRotation(45);
+        axesParent1.setScale(0.5);
 
         // A set of axes that are a child of the above
-        AxesObject axesChild = new AxesObject(axesParent);
-        axesChild.setPosition(-2, -1);
-        axesChild.setRotation(-90);
-        axesChild.setScale(2);
+        setParentTesting axesChild1 = new setParentTesting(axesParent1);
+        axesChild1.setPosition(-2, -1);
+        axesChild1.setRotation(-90);
+        axesChild1.setScale(2);
 
+        // A set of axes showing a transformed coordinate frame
+        setParentTesting axesParent2 = new setParentTesting(GameObject.ROOT);
+        axesParent2.setPosition(-1, -1);
+        axesParent2.setRotation(-45);
+        axesParent2.setScale(0.5);
+
+        // A set of axes that are a child of the above
+        setParentTesting axesChild2 = new setParentTesting(axesParent2);
+        axesChild2.setPosition(2, 1);
+        axesChild2.setRotation(90);
+        axesChild2.setScale(2);
+
+        axesParent2.setParent(axesParent1);
+        
         // Add the game engine
         GameEngine engine = new GameEngine(camera);
         panel.addGLEventListener(engine);

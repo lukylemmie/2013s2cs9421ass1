@@ -1,11 +1,8 @@
 package ass1;
 
 /**
- * A collection of useful math methods 
- *
- * TODO: The methods you need to complete are at the bottom of the class
- *
- * @author malcolmr
+ * A collection of useful math methods
+ * @author AndrewLem
  */
 public class MathUtil {
 
@@ -99,9 +96,9 @@ public class MathUtil {
     }
 
     /**
-     * TODO: A 2D translation matrix for the given offset vector
+     * A 2D translation matrix for the given offset vector
      * 
-     * @param pos
+     * @param v
      * @return
      */
     public static double[][] translationMatrix(double[] v) {
@@ -130,7 +127,7 @@ public class MathUtil {
     }
 
     /**
-     * TODO: A 2D rotation matrix for the given angle
+     * A 2D rotation matrix for the given angle
      * 
      * @param angle
      * @return
@@ -154,7 +151,7 @@ public class MathUtil {
     }
 
     /**
-     * TODO: A 2D scale matrix that scales both axes by the same factor
+     * A 2D scale matrix that scales both axes by the same factor
      * 
      * @param scale
      * @return
