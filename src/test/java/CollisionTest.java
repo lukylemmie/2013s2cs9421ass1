@@ -135,19 +135,19 @@ public class CollisionTest {
         System.out.println("Testing Multiple Shapes Collision");
 
         expectCollisionWith(gameEngine, 0, 0, square, "square037");
-        expectCollisionWith(gameEngine, 0, 0, square, "triangle038");
+        expectCollisionWith(gameEngine, 0, 0, triangle, "triangle038");
         expectCollisionWith(gameEngine, 0.5, 0, square, "square039");
-        expectCollisionWith(gameEngine, 0.5, 0, square, "triangle040");
+        expectCollisionWith(gameEngine, 0.5, 0, triangle, "triangle040");
         expectCollisionWith(gameEngine, 0.5, 0.5, square, "square041");
-        expectCollisionWith(gameEngine, 0.5, 0.5, square, "triangle042");
+        expectCollisionWith(gameEngine, 0.5, 0.5, triangle, "triangle042");
         expectCollisionWith(gameEngine, 0.25, 0.75, square, "square043");
-        expectMissWith(gameEngine, 0.25, 0.75, square, "triangle044");
+        expectMissWith(gameEngine, 0.25, 0.75, triangle, "triangle044");
 
         triangle.rotate(-60);
 
         expectCollisionWith(gameEngine, 0.5, 0, square, "square045");
-        expectCollisionWith(gameEngine, 0.5, 0, square, "triangle046");
-        expectCollisionWith(gameEngine, 0.5, -0.5, square, "triangle047");
+        expectCollisionWith(gameEngine, 0.5, 0, triangle, "triangle046");
+        expectCollisionWith(gameEngine, 0.5, -0.5, triangle, "triangle047");
         expectMissWith(gameEngine, 0.5, -0.5, square, "square048");
     }
 

@@ -199,4 +199,9 @@ public class MathUtil {
         }
         System.out.println("}");
     }
+
+    public static double cleanNumberTo10dp(double x){
+        x = Math.round(x * (1e10)) / 1e10;
+        return x;
+    }
 }

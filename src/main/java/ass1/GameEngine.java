@@ -22,7 +22,7 @@ public class GameEngine implements GLEventListener {
     private Camera myCamera;
     private long myTime;
 
-    private static boolean DEBUG = true;
+    private static boolean DEBUG = false;
 
     /**
      * Construct a new game engine.
@@ -130,6 +130,9 @@ public class GameEngine implements GLEventListener {
             int count;
 
             this.point = point;
+            point[0] = MathUtil.cleanNumberTo10dp(point[0]);
+            point[1] = MathUtil.cleanNumberTo10dp(point[1]);
+
             this.polygon = polygon;
 
             count = countLinesOnRight();
@@ -159,16 +162,28 @@ public class GameEngine implements GLEventListener {
             for(int i = 0; i < polygon.length && !pointInPolygon; i += 2){
                 ibx = (i + 2) % polygon.length;
                 iby = (i + 3) % polygon.length;
-                ax = polygon[i];
-                ay = polygon[i+1];
-                bx = polygon[ibx];
-                by = polygon[iby];
+                ax = MathUtil.cleanNumberTo10dp(polygon[i]);
+                ay = MathUtil.cleanNumberTo10dp(polygon[i+1]);
+                bx = MathUtil.cleanNumberTo10dp(polygon[ibx]);
+                by = MathUtil.cleanNumberTo10dp(polygon[iby]);
 
                 if(DEBUG){
                     System.out.println("ax = " + ax + "; ay = " + ay + "; bx = " + bx + "; by = " + by);
                 }
 
-                if(checkVerticallyBetween(point[1], ay, by)){
+                if((point[0] == ax && point[1] == ay) || (point[0] == bx && point[1] == by)){
+                    pointInPolygon = true;
+                    if(DEBUG){
+                        System.out.println("True because point on polygon vertex");
+                    }
+                } else if(ay == by && point[1] == ay){
+                    if(checkHorizontallyBetween(point[0], ax, bx)){
+                        pointInPolygon = true;
+                        if(DEBUG){
+                            System.out.println("True because point on horizontal line");
+                        }
+                    }
+                } else if(checkVerticallyBetween(point[1], ay, by)){
                     if(DEBUG){
                         System.out.println("Points are between!");
                     }
@@ -179,6 +194,9 @@ public class GameEngine implements GLEventListener {
                     }
                     if(condition == 0){
                         pointInPolygon = true;
+                        if(DEBUG){
+                            System.out.println("True because point on edge");
+                        }
                     } else if(condition > 0){
                         count++;
                     }
@@ -195,16 +213,26 @@ public class GameEngine implements GLEventListener {
         boolean checkVerticallyBetween(double py, double ay, double by){
             boolean isBetween = false;
 
-            if(ay != by){
-                if(ay <= py && py < by){
-                    isBetween = true;
-                } else if(by <= py && py < ay){
-                    isBetween = true;
-                }
+            if(ay <= py && py < by){
+                isBetween = true;
+            } else if(by <= py && py < ay){
+                isBetween = true;
+            }
+            return isBetween;
+        }
+
+        private boolean checkHorizontallyBetween(double px, double ax, double bx) {
+            boolean isBetween = false;
+
+            if(ax <= px && px < bx){
+                isBetween = true;
+            } else if(bx <= px && px < ax){
+                isBetween = true;
             }
             return isBetween;
         }
     }
+
 
     private void printPointsList(double[] points){
         System.out.println("list of points:");
