@@ -149,4 +149,21 @@ public class PolygonalGameObject extends GameObject {
 
     }
 
+    double[] getGlobalPoints(){
+        double[] globalPoints = getPoints();
+        double[][] globalMatrix = getGlobalMatrix();
+        double[] point = new double[3];
+
+        point[2] = 1;
+
+        for(int i = 0; i < globalPoints.length; i += 2){
+            point[0] = globalPoints[i];
+            point[1] = globalPoints[i+1];
+            point = MathUtil.multiply(globalMatrix, point);
+            globalPoints[i] = point[0];
+            globalPoints[i+1] = point[1];
+        }
+
+        return globalPoints;
+    }
 }

@@ -22,6 +22,8 @@ public class GameEngine implements GLEventListener {
     private Camera myCamera;
     private long myTime;
 
+    private static boolean DEBUG = true;
+
     /**
      * Construct a new game engine.
      *
@@ -96,10 +98,20 @@ public class GameEngine implements GLEventListener {
     public List<GameObject> collision(double[] p){
         ArrayList<GameObject> objectList = new ArrayList<GameObject>();
 
+        if(DEBUG){
+            System.out.println("Checking for collisions");
+        }
+        int currentObjectCount = 0;
+
         for(GameObject object : GameObject.ALL_OBJECTS){
+            if(DEBUG){
+                currentObjectCount++;
+                System.out.println("Processed " + currentObjectCount + " out of " + GameObject.ALL_OBJECTS.size() + " objects");
+            }
+
             if(object instanceof PolygonalGameObject){
                 PolygonalGameObject polygon = (PolygonalGameObject) object;
-                PointAndPolygon temp = new PointAndPolygon(p, polygon.getPoints());
+                PointAndPolygon temp = new PointAndPolygon(p, polygon.getGlobalPoints());
                 if(temp.isPointInPolygon()){
                     objectList.add(object);
                 }
@@ -127,6 +139,12 @@ public class GameEngine implements GLEventListener {
                     pointInPolygon = true;
                 }
             }
+
+            if(DEBUG){
+                System.out.println("point: (" + point[0] + "," + point[1] + ")");
+                printPointsList(polygon);
+                System.out.println("count: " + count + " & pointInPolygon: " + pointInPolygon);
+            }
         }
 
         private boolean isPointInPolygon() {
@@ -136,20 +154,37 @@ public class GameEngine implements GLEventListener {
         int countLinesOnRight(){
             int count = 0;
             double ax, ay, bx, by;
+            int ibx, iby;
 
-            for(int i = 0; i < polygon.length - 2 && !pointInPolygon; i += 2){
+            for(int i = 0; i < polygon.length && !pointInPolygon; i += 2){
+                ibx = (i + 2) % polygon.length;
+                iby = (i + 3) % polygon.length;
                 ax = polygon[i];
                 ay = polygon[i+1];
-                bx = polygon[i+2];
-                by = polygon[i+3];
+                bx = polygon[ibx];
+                by = polygon[iby];
+
+                if(DEBUG){
+                    System.out.println("ax = " + ax + "; ay = " + ay + "; bx = " + bx + "; by = " + by);
+                }
 
                 if(checkVerticallyBetween(point[1], ay, by)){
+                    if(DEBUG){
+                        System.out.println("Points are between!");
+                    }
                     double[] line = {ax, ay, bx, by};
                     double condition = MathUtil.comparePointAndLine(point, line);
+                    if(DEBUG){
+                        System.out.println("condition = " + condition);
+                    }
                     if(condition == 0){
                         pointInPolygon = true;
                     } else if(condition > 0){
                         count++;
+                    }
+                } else {
+                    if(DEBUG){
+                        System.out.println("Points not between!");
                     }
                 }
             }
@@ -160,13 +195,22 @@ public class GameEngine implements GLEventListener {
         boolean checkVerticallyBetween(double py, double ay, double by){
             boolean isBetween = false;
 
-            if(ay <= py && py < by){
-                isBetween = true;
-            } else if(by <= py && py < ay){
-                isBetween = true;
+            if(ay != by){
+                if(ay <= py && py < by){
+                    isBetween = true;
+                } else if(by <= py && py < ay){
+                    isBetween = true;
+                }
             }
-
             return isBetween;
+        }
+    }
+
+    private void printPointsList(double[] points){
+        System.out.println("list of points:");
+        for(int i = 0; i < points.length; i += 2){
+            System.out.print("(" + points[i] + "," + points[i+1] + ") ");
+            System.out.println();
         }
     }
 }
