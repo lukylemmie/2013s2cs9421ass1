@@ -1,11 +1,10 @@
 package ass1;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The ass1.GameEngine is the GLEventListener for our game.

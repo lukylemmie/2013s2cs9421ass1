@@ -6,7 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
-import ass1.*;
+import ass1.Camera;
+import ass1.GameEngine;
+import ass1.GameObject;
+import ass1.PolygonalGameObject;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,13 +1,14 @@
-import java.awt.BorderLayout;
+import ass1.Camera;
+import ass1.GameEngine;
+import ass1.GameObject;
+import com.jogamp.opengl.util.FPSAnimator;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
-import javax.swing.JFrame;
-
-import ass1.*;
-import com.jogamp.opengl.util.FPSAnimator;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A simple axes object for debugging the assignment.

@@ -1,6 +1,5 @@
 package ass1;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
 /**

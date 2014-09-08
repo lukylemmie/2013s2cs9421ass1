@@ -1,9 +1,8 @@
 package ass1;
 
+import javax.media.opengl.GL2;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.media.opengl.GL2;
 
 
 /**

@@ -1,10 +1,5 @@
 package sailing.objects;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import sailing.SailingGame;
-
 import ass1.GameObject;
 import ass1.Mouse;
 import ass1.PolygonalGameObject;

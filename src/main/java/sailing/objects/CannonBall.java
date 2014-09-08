@@ -1,7 +1,6 @@
 package sailing.objects;
 
 import ass1.GameObject;
-import ass1.MathUtil;
 import ass1.PolygonalGameObject;
 
 

@@ -1,18 +1,16 @@
 package sailing;
 
-import java.awt.Dimension;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import sailing.objects.Island;
 import sailing.objects.Merchant;
 import sailing.objects.Pirate;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

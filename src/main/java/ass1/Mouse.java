@@ -1,10 +1,9 @@
 package ass1;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * A mouse handler for the game engine.

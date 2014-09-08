@@ -1,32 +1,21 @@
 package sailing;
 
-import java.awt.BorderLayout;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import ass1.Camera;
+import ass1.GameEngine;
+import ass1.Mouse;
+import com.jogamp.opengl.util.FPSAnimator;
+import sailing.objects.CameraHarness;
+import sailing.objects.Pirate;
 
-import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLJPanel;
-import javax.swing.JFrame;
-
-import sailing.objects.CameraHarness;
-import sailing.objects.Cursor;
-import sailing.objects.Pirate;
-
-import ass1.Camera;
-import ass1.GameEngine;
-import ass1.GameObject;
-import ass1.MathUtil;
-import ass1.Mouse;
-
-import com.jogamp.opengl.util.FPSAnimator;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * COMMENT: Comment Triangle 
