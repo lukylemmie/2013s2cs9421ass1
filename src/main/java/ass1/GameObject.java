@@ -312,12 +312,10 @@ public class GameObject {
      * @return the global rotation of the object (in degrees) 
      */
     public double getGlobalRotation() {
-        double angle;
+        double angle = myRotation;
 
         if(myParent != null){
             angle = myParent.getGlobalRotation() + myRotation;
-        } else {
-            angle = myRotation;
         }
 
         return angle;
@@ -329,12 +327,10 @@ public class GameObject {
      * @return the global scale of the object 
      */
     public double getGlobalScale() {
-        double scale;
+        double scale = myScale;
 
         if(myParent != null){
             scale = myParent.getGlobalScale() * myScale;
-        } else {
-            scale = myScale;
         }
         return scale;
     }
